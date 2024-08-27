@@ -3,6 +3,7 @@ using PracticoProyectos.Modelos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -53,7 +54,7 @@ namespace PracticoProyectos.Servicios
             //no seas flojo, implementa el try catch en este método también
             //si no lo haces, el programa se caerá si hay un error y no tendrás idea de qué pasó
 
-            string path = $"/projects/{projectId}{groupKey}";
+            string path = $"/projects/{projectId}/{groupKey}";
             string body = "";
             var jsonRespuestaApi = await SendTransaction(path, body, "GET");
 
@@ -87,5 +88,83 @@ namespace PracticoProyectos.Servicios
             return respuestaApi;
         }
         //implementa los métodos Update y Delete siguiendo el mismo patrón de los métodos anteriores
+        public async Task<Proyecto> Delete(int projectId)
+        {
+            try
+            {
+                // Definir la ruta para la solicitud DELETE
+                string path = $"/projects/{projectId}/{groupKey}";
+                string body = ""; // No se necesita cuerpo para la solicitud DELETE
+
+                // Enviar la solicitud DELETE
+                var response = await SendTransaction(path, body, "DELETE");
+
+                // Verificar el estado de la respuesta
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    // Si la respuesta contiene un cuerpo, deserializarlo
+                    if (!string.IsNullOrEmpty(response.Data?.ToString()))
+                    {
+                        RespuestaProyecto respuestaApi = JsonSerializer.Deserialize<RespuestaProyecto>(response.Data.ToString());
+                        return respuestaApi.Data;
+                    }
+                    else
+                    {
+                        // Manejar el caso donde no hay cuerpo en la respuesta
+                        // Puede ser que la operación se realizó exitosamente pero no hay datos adicionales
+                        return null; // O manejarlo de otra manera según tu lógica
+                    }
+                }
+                else
+                {
+                    // Manejar el error basado en el código de estado de la respuesta
+                    // Aquí puedes lanzar una excepción específica si es necesario
+                    // throw new Exception($"Error al eliminar el proyecto. Código de estado: {response.StatusCode}");
+                    return null; // O manejarlo de otra manera según tu lógica
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones (log o manejo del error)
+                Console.WriteLine($"Se produjo un error al intentar eliminar el proyecto: {ex.Message}");
+                return null; // Indicando que la eliminación falló debido a una excepción
+            }
+        }
+        // Método para actualizar un proyecto existente (Update)
+        public async Task<string> Update(int projectId, object proyectoActualizado)
+        {
+            string respuestaApi = null;
+            string path = $"/projects/{projectId}/{groupKey}";
+
+            try
+            {
+                // Serializar el objeto actualizado a JSON, ya que la API espera recibir un JSON
+                string proyectoJson = JsonSerializer.Serialize(proyectoActualizado);
+
+                // Enviar la solicitud PUT con los datos actualizados
+                var jsonRespuestaApi = await SendTransaction(path, proyectoJson, "PUT");
+
+                if (jsonRespuestaApi.Code == 200) // Código HTTP 200 indica que la actualización fue exitosa
+                {
+                    respuestaApi = jsonRespuestaApi.Message;
+                }
+                else
+                {
+                    // Manejar otros códigos de estado según sea necesario
+                    // Puedes lanzar una excepción o manejar el error de alguna otra manera
+                    throw new Exception($"Error al actualizar el proyecto. Código de estado: {jsonRespuestaApi.Code}");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones
+                MessageBox.Show(ex.Message);
+                throw;
+            }
+
+            return respuestaApi;
+        }
+
+
     }
 }

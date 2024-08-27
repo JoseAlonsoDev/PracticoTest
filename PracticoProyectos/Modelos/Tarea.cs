@@ -22,16 +22,16 @@ namespace PracticoProyectos.Modelos
         public string Status { get; set; }
 
         [JsonPropertyName("hours")]
-        public int Hours { get; set; }
+        public string Hours { get; set; }
 
         [JsonPropertyName("area")]
         public string area { get; set; }
 
         [JsonPropertyName("project_id")]
-        public int Project_id { get; set; }
+        public string Project_id { get; set; }
 
         [JsonPropertyName("user_id")]
-        public int User_id { get; set; }
+        public string User_id { get; set; }
 
     }
 }

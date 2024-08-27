@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace PracticoProyectos.Http
 
     public class RespuestaApi : RespuestaBase<object>
     {
+        public HttpStatusCode StatusCode { get; internal set; }
     }
 
     public class RespuestaListaDeProyectos : RespuestaBase<List<Proyecto>>
@@ -31,8 +33,13 @@ namespace PracticoProyectos.Http
     public class RespuestaProyecto : RespuestaBase<Proyecto>
     {
     }
-
     public class RespuestaCreacionProyecto : RespuestaBase<Proyecto>
+    {
+    }
+    public class RespuestaListaDeTareas : RespuestaBase<List<Tarea>>
+    {
+    }
+    public class RespuestaTarea : RespuestaBase<Tarea>
     {
     }
 }

@@ -35,16 +35,20 @@
             description = new DataGridViewTextBoxColumn();
             status = new DataGridViewTextBoxColumn();
             workerHours = new DataGridViewTextBoxColumn();
+            dataGridView2 = new DataGridView();
+            textBox1 = new TextBox();
+            textBox2 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(350, 9);
+            label1.Location = new Point(306, 7);
             label1.Name = "label1";
-            label1.Size = new Size(138, 38);
+            label1.Size = new Size(108, 30);
             label1.TabIndex = 0;
             label1.Text = "Proyectos";
             label1.Click += label1_Click;
@@ -53,9 +57,9 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(366, 362);
+            label2.Location = new Point(320, 272);
             label2.Name = "label2";
-            label2.Size = new Size(94, 38);
+            label2.Size = new Size(74, 30);
             label2.TabIndex = 1;
             label2.Text = "Tareas";
             // 
@@ -63,10 +67,11 @@
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { name, description, status, workerHours });
-            dataGridView1.Location = new Point(413, 86);
+            dataGridView1.Location = new Point(361, 64);
+            dataGridView1.Margin = new Padding(3, 2, 3, 2);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(391, 220);
+            dataGridView1.Size = new Size(342, 165);
             dataGridView1.TabIndex = 2;
             // 
             // name
@@ -97,18 +102,48 @@
             workerHours.Name = "workerHours";
             workerHours.Width = 125;
             // 
+            // dataGridView2
+            // 
+            dataGridView2.AllowUserToAddRows = false;
+            dataGridView2.AllowUserToDeleteRows = false;
+            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2.Location = new Point(357, 346);
+            dataGridView2.Name = "dataGridView2";
+            dataGridView2.ReadOnly = true;
+            dataGridView2.Size = new Size(346, 150);
+            dataGridView2.TabIndex = 3;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(83, 81);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(100, 23);
+            textBox1.TabIndex = 4;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(83, 123);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(100, 23);
+            textBox2.TabIndex = 5;
+            // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(834, 737);
+            ClientSize = new Size(730, 553);
+            Controls.Add(textBox2);
+            Controls.Add(textBox1);
+            Controls.Add(dataGridView2);
             Controls.Add(dataGridView1);
             Controls.Add(label2);
             Controls.Add(label1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -122,5 +157,8 @@
         private DataGridViewTextBoxColumn description;
         private DataGridViewTextBoxColumn status;
         private DataGridViewTextBoxColumn workerHours;
+        private DataGridView dataGridView2;
+        private TextBox textBox1;
+        private TextBox textBox2;
     }
 }
